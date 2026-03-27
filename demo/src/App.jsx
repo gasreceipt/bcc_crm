@@ -815,6 +815,8 @@ function App() {
         </button>
       </div>
 
+      <footer className="demo-footer">bitches love the cheddar</footer>
+
       {/* Course Creation/Edit Modal */}
       {isCourseModalOpen && (
         <div className="sale-form-overlay">

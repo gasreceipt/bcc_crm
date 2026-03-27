@@ -1194,6 +1194,23 @@ body {
   object-position: center bottom;
 }
 
+.demo-footer {
+  position: fixed;
+  left: 24px;
+  bottom: 20px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(10, 20, 13, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+  z-index: 850;
+}
+
 .sale-form-overlay {
   position: fixed;
   inset: 0;
@@ -1354,6 +1371,11 @@ body {
     gap: 12px;
   }
 
+  .demo-footer {
+    left: 18px;
+    bottom: 16px;
+  }
+
   .bunker-helper-bubble {
     width: min(280px, calc(100vw - 120px));
     padding: 16px 16px 14px;
@@ -1426,6 +1448,13 @@ body {
     bottom: 12px;
     align-items: center;
     gap: 10px;
+  }
+
+  .demo-footer {
+    left: 12px;
+    bottom: 12px;
+    padding: 7px 10px;
+    font-size: 0.64rem;
   }
 
   .bunker-helper-bubble {
