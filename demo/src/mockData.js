@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'benchcraft-crm-demo-v1';
+const STORAGE_KEY = 'benchcraft-crm-demo-v2';
 
 const INDUSTRIES = [
   'Landscaping',
@@ -110,7 +110,7 @@ function makeLead(name, industry, location, overrides = {}) {
 function createInitialState() {
   const courses = [
     { id: 'default', name: 'General Leads', defaultLocation: 'Wareham, MA' },
-    { id: 'comfort_showers_baths', name: 'Comfort Showers & Baths', defaultLocation: 'Plymouth, MA' },
+    { id: 'harbor_bluffs_club', name: 'Harbor Bluffs Golf Club', defaultLocation: 'Plymouth, MA' },
     { id: 'pine_barrens_cc', name: 'Pine Barrens Country Club', defaultLocation: 'Cape Cod, MA' },
   ];
 
@@ -123,7 +123,7 @@ function createInitialState() {
       makeLead('Boundary Brothers Fence Co.', 'Fencing & Decking', 'Wareham, MA', { status: 'Bunker', ownerOperated: true }),
       makeLead('Anchor Point Realty', 'Real Estate', 'Wareham, MA', { status: 'Hazard', ownerOperated: false }),
     ],
-    comfort_showers_baths: [
+    harbor_bluffs_club: [
       makeLead('Craftline Remodeling', 'Home Remodeling', 'Plymouth, MA', { status: 'Fairway', ownerOperated: true }),
       makeLead('Compass Roofing & Exteriors', 'Roofing', 'Plymouth, MA', { status: 'Tee Box' }),
       makeLead('Pipewise Plumbing', 'Plumber', 'Plymouth, MA', { status: 'Green', notes: 'Asked about neighborhood exclusivity.' }),
@@ -151,7 +151,7 @@ function createInitialState() {
     {
       id: uid('sale'),
       clientName: 'Craftline Remodeling',
-      courseName: 'Comfort Showers & Baths',
+      courseName: 'Harbor Bluffs Golf Club',
       product: 'Benches',
       price: 6800,
       date: '3/16/2026',
