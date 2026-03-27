@@ -1038,6 +1038,155 @@ body {
   background: rgba(255, 255, 255, 0.025);
 }
 
+.bunker-helper {
+  position: fixed;
+  right: 28px;
+  bottom: 24px;
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  z-index: 900;
+  pointer-events: none;
+}
+
+.bunker-helper > * {
+  pointer-events: auto;
+}
+
+.bunker-helper-bubble {
+  position: relative;
+  width: min(320px, calc(100vw - 140px));
+  padding: 18px 18px 16px;
+  border-radius: 22px;
+  border: 1px solid rgba(122, 203, 120, 0.18);
+  background:
+    radial-gradient(circle at top left, rgba(122, 203, 120, 0.14), transparent 44%),
+    linear-gradient(180deg, rgba(16, 31, 21, 0.97), rgba(8, 17, 11, 0.98));
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px);
+  animation: helperFloatIn 220ms ease;
+}
+
+.bunker-helper-bubble::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  bottom: 34px;
+  width: 22px;
+  height: 22px;
+  border-top: 1px solid rgba(122, 203, 120, 0.18);
+  border-right: 1px solid rgba(122, 203, 120, 0.18);
+  background: rgba(10, 20, 13, 0.98);
+  transform: rotate(45deg);
+}
+
+.bunker-helper-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(122, 203, 120, 0.12);
+  border: 1px solid rgba(122, 203, 120, 0.18);
+  color: var(--primary);
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.bunker-helper-bubble h3 {
+  margin: 0 32px 8px 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.bunker-helper-bubble p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.bunker-helper-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.bunker-helper-nav,
+.bunker-helper-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.bunker-helper-nav:hover,
+.bunker-helper-close:hover,
+.bunker-helper-trigger:hover {
+  transform: translateY(-1px);
+}
+
+.bunker-helper-nav {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+}
+
+.bunker-helper-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+}
+
+.bunker-helper-count {
+  min-width: 52px;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.bunker-helper-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  height: 112px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.36));
+}
+
+.bunker-helper-glow {
+  position: absolute;
+  inset: 16px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgba(122, 203, 120, 0.34) 0%, rgba(122, 203, 120, 0.12) 40%, transparent 72%);
+  filter: blur(8px);
+}
+
+.bunker-helper-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
 .sale-form-overlay {
   position: fixed;
   inset: 0;
@@ -1114,6 +1263,17 @@ body {
   }
 }
 
+@keyframes helperFloatIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (max-width: 1200px) {
   .sidebar {
     width: 280px;
@@ -1180,6 +1340,22 @@ body {
   .overview-panel-wide {
     grid-column: auto;
   }
+
+  .bunker-helper {
+    right: 18px;
+    bottom: 18px;
+    gap: 12px;
+  }
+
+  .bunker-helper-bubble {
+    width: min(280px, calc(100vw - 120px));
+    padding: 16px 16px 14px;
+  }
+
+  .bunker-helper-trigger {
+    width: 94px;
+    height: 94px;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1236,5 +1412,30 @@ body {
 
   .overview-stat-grid {
     grid-template-columns: 1fr;
+  }
+
+  .bunker-helper {
+    right: 12px;
+    bottom: 12px;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bunker-helper-bubble {
+    width: min(240px, calc(100vw - 112px));
+    padding: 14px 14px 12px;
+  }
+
+  .bunker-helper-bubble h3 {
+    font-size: 0.92rem;
+  }
+
+  .bunker-helper-bubble p {
+    font-size: 0.78rem;
+  }
+
+  .bunker-helper-trigger {
+    width: 78px;
+    height: 78px;
   }
 }

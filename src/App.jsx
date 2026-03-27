@@ -4,7 +4,8 @@ import {
   Map, Star, Phone, Globe, Activity, ShieldCheck,
   BookOpen, Trash2, LayoutDashboard, DollarSign,
   Trophy, PlusCircle, X, ExternalLink, GraduationCap,
-  Edit2, HelpCircle, CheckSquare, Square, MoveHorizontal
+  Edit2, HelpCircle, CheckSquare, Square, MoveHorizontal,
+  ChevronLeft, ChevronRight
 } from 'lucide-react';
 import './App.css';
 
@@ -12,6 +13,50 @@ const API_URL = `http://${window.location.hostname}:8000/api`;
 
 const COLUMNS = ["Tee Box", "Fairway", "Green", "Flagstick", "Clubhouse", "Bunker", "Do Not Call", "Hazard"];
 const PRODUCTS = ["Scorecards", "Benches", "Tee Signs", "Ball Washers", "Course Guides", "Display Boards", "Yardage Cards"];
+const HELPER_TIPS = {
+  pipeline: [
+    {
+      title: 'Scout smarter',
+      body: 'Start with a tight radius and owner-ready mode on, then widen the search once the best local prospects are covered.'
+    },
+    {
+      title: 'Move in batches',
+      body: 'Tap lead cards to select multiple prospects, then use the bulk move bar to clean up your board fast.'
+    },
+    {
+      title: 'Save the context',
+      body: 'Use notes after each call so the next follow-up starts with the right angle instead of guesswork.'
+    }
+  ],
+  overview: [
+    {
+      title: 'Read the funnel first',
+      body: 'A crowded Tee Box usually means you have room to qualify harder before adding more new names.'
+    },
+    {
+      title: 'Watch stage balance',
+      body: 'If leads pile up in Fairway or Bunker, the next move is usually follow-up quality, not more scanning.'
+    },
+    {
+      title: 'Use the snapshot',
+      body: 'Conversion rate and average sale together tell you whether the pipeline is both healthy and valuable.'
+    }
+  ],
+  sales: [
+    {
+      title: 'Log wins quickly',
+      body: 'Record closed deals right away so revenue totals and conversion numbers stay honest.'
+    },
+    {
+      title: 'Track product mix',
+      body: 'Your product column helps reveal which golf assets are closing most often across tours.'
+    },
+    {
+      title: 'Recent sales matter',
+      body: 'Use the latest wins as proof points when you are pitching similar prospects still in motion.'
+    }
+  ]
+};
 
 const COLUMN_KEY = [
   { name: "Tee Box", desc: "First Tee / Unprocessed leads.", color: "#4CAF50" },
@@ -56,6 +101,8 @@ function App() {
     product: PRODUCTS[0],
     price: ''
   });
+  const [isHelperOpen, setIsHelperOpen] = useState(false);
+  const [helperTipIndex, setHelperTipIndex] = useState(0);
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -79,6 +126,13 @@ function App() {
 
     fetchInitialData();
   }, []);
+
+  const helperTips = HELPER_TIPS[activeTab] || HELPER_TIPS.pipeline;
+  const activeHelperTip = helperTips[helperTipIndex] || helperTips[0];
+
+  useEffect(() => {
+    setHelperTipIndex((currentIndex) => Math.min(currentIndex, helperTips.length - 1));
+  }, [helperTips]);
 
   const handleCourseSwitch = async (course, shouldFetch = true) => {
     setActiveCourse(course);
@@ -747,6 +801,55 @@ function App() {
           </div>
         )}
       </main>
+
+      <div className={`bunker-helper ${isHelperOpen ? 'open' : ''}`}>
+        {isHelperOpen && activeHelperTip && (
+          <div className="bunker-helper-bubble" role="status" aria-live="polite">
+            <div className="bunker-helper-badge">Bunker Caddie</div>
+            <h3>{activeHelperTip.title}</h3>
+            <p>{activeHelperTip.body}</p>
+            <div className="bunker-helper-controls">
+              <button
+                type="button"
+                className="bunker-helper-nav"
+                onClick={() => setHelperTipIndex((currentIndex) => (currentIndex - 1 + helperTips.length) % helperTips.length)}
+                aria-label="Previous tip"
+              >
+                <ChevronLeft size={16} />
+              </button>
+              <div className="bunker-helper-count">
+                {helperTipIndex + 1} / {helperTips.length}
+              </div>
+              <button
+                type="button"
+                className="bunker-helper-nav"
+                onClick={() => setHelperTipIndex((currentIndex) => (currentIndex + 1) % helperTips.length)}
+                aria-label="Next tip"
+              >
+                <ChevronRight size={16} />
+              </button>
+            </div>
+            <button
+              type="button"
+              className="bunker-helper-close"
+              onClick={() => setIsHelperOpen(false)}
+              aria-label="Close helper"
+            >
+              <X size={16} />
+            </button>
+          </div>
+        )}
+
+        <button
+          type="button"
+          className="bunker-helper-trigger"
+          onClick={() => setIsHelperOpen(true)}
+          aria-label={isHelperOpen ? 'Bunker helper open' : 'Open bunker helper'}
+        >
+          <span className="bunker-helper-glow"></span>
+          <img src="/bunker.png" alt="Bunker helper mascot" className="bunker-helper-image" />
+        </button>
+      </div>
 
       {/* Course Creation/Edit Modal */}
       {isCourseModalOpen && (
